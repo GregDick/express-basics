@@ -1,8 +1,15 @@
 //var app = require('express')();
 var express = require('express');
 var app = express();
+var routes = require('./routes/index');
+var pizza = require('./routes/pizza');
 
 app.set('view engine', 'ejs');
+app.set('case sensitive routing', true);
+app.set('strict routing', true);
+
+//all templates now have access to title
+app.locals.title = 'My Awesome App';
 
 app.use(function(req, res, next){
   //logging at the top
@@ -13,27 +20,9 @@ app.use(function(req, res, next){
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-
-app.get('/hello', function (req, res) {
-  setTimeout(function(){
-    var awesomeThings = ['one', 'fish', 'two', 'fish'];
-    res.render('templates/world', {
-      title: 'cool stuff',
-      awesomeThings: awesomeThings
-    });
-  }, 5000)
-});
-
-app.get('/json', function (req, res) {
-  res.send({an: 'object'});
-});
-
-app.get('/error', function (req, res) {
-  res.send(badvariable);
-});
+//========routes======//
+app.use('/', routes);
+app.use('/pizza', pizza);
 
 app.use(function(req, res){
   //400s before 500s
@@ -52,3 +41,4 @@ var server = app.listen(3000, function () {
   console.log('Example app listening at http://%s:%s', host, port);
 });
 
+module.exports = app;
