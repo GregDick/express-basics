@@ -1,0 +1,15 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <title><%= title %></title>
+    </head>
+    <body>
+      <h1>My site title is <%= title %></h1>
+      <ul>
+        <% awesomeThings.forEach(function(thing){ %>
+          <li><%= thing %> is awesome</li>
+        <% }); %>
+      </ul>
+    </body>
+</html>
