@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%= title %> | Chicken-nuggets value store</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    </head>
+    <body>
+      <h1>Mmmmm.... Chicken Nuggets</h1>
+      <form action='/chickennuggets/order' method='POST'>
+        Name: <input name='name' type='text' placeholder='Name'>
+        Style:
+        <select name='style'>
+          <option value='mild'>Mild</option>
+          <option value='medium'>Medium</option>
+          <option value='hot'>Hot</option>
+          <option value='magma'>Magma</option>
+        </select>
+        Qty: <input name='qty' type='number' min='1' value='6'>
+        <input type='submit' value='Order Up!'>
+      </form>
+    </body>
+</html>
