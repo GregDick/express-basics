@@ -1,6 +1,11 @@
+var fs = require('fs');
+
 //var app = require('express')();
 var express = require('express');
 var app = express();
+// var morgan = require('morgan');
+var loggly = require('loggly');
+
 var routes = require('./routes/index');
 var pizza = require('./routes/pizza');
 
@@ -11,12 +16,33 @@ app.set('strict routing', true);
 //all templates now have access to title
 app.locals.title = 'My Awesome App';
 
-app.use(function(req, res, next){
-  //logging at the top
-  console.log('Request at ' + new Date().toISOString());
-  //next allows the program to continue after executing on this middleware
+app.use(require('less-middleware')('public'));
+
+// var logStream = fs.createWriteStream('access.log', {flags: 'a'});
+
+// app.use(morgan('combined', {stream: logStream}));
+// app.use(morgan('dev'));
+
+
+var client = loggly.createClient({
+  token: 'f05cf77d-a401-4704-8a65-7574f901db83',
+  subdomain: 'gregdick',
+  tags: ['NodeJS'],
+  json: true
+})
+
+app.use(function(err, req, res, next){
+  client.log({ip: req.ip,
+  date: new Date(),
+  url: req.url,
+  status: res.statusCode,
+  method: req.method,
+  err: err
+  });
   next();
 })
+
+
 
 app.use(express.static('public'));
 
