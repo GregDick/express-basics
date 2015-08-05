@@ -7,9 +7,10 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
 
-var routes = require('./routes/index');
-var pizza = require('./routes/pizza');
 var chickennuggets = require('./routes/chickennuggets');
+var routes = require('./routes/index');
+var imgur = require('./routes/imgur');
+var pizza = require('./routes/pizza');
 
 app.set('view engine', 'ejs');
 app.set('case sensitive routing', true);
@@ -43,9 +44,10 @@ app.use(express.static('public'));
 
 
 //========routes======//
-app.use('/', routes);
-app.use('/pizza', pizza);
 app.use('/chickennuggets', chickennuggets);
+app.use('/imgur', imgur);
+app.use('/pizza', pizza);
+app.use('/', routes);
 
 app.use(function(req, res){
   //400s before 500s
