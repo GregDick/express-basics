@@ -2,7 +2,6 @@ var fs = require('fs');
 
 //var app = require('express')();
 var express = require('express');
-var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
@@ -11,6 +10,9 @@ var chickennuggets = require('./routes/chickennuggets');
 var routes = require('./routes/index');
 var imgur = require('./routes/imgur');
 var pizza = require('./routes/pizza');
+
+require('./lib/mongodb');
+var app = express();
 
 app.set('view engine', 'ejs');
 app.set('case sensitive routing', true);

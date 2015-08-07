@@ -5,13 +5,13 @@ router.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-router.get('/hello', function (req, res) {
-  setTimeout(function(){
-    var awesomeThings = ['one', 'fish', 'two', 'fish'];
-    res.render('templates/world', {
-      awesomeThings: awesomeThings
-    });
-  }, 5000)
+router.get('/awesomethings', function (req, res) {
+    var collection = global.db.collection('awesomeThings');
+    collection.find().toArray(function(err, things){
+      res.render('templates/world', {
+        awesomeThings: things
+      });
+    })
 });
 
 
