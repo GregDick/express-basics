@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %> | Order a Pizza</title>
+</head>
+<body>
+  <h1>Order</h1>
+  <form action="/pizza/order" method="POST">
+    Name:
+      <input type="text" placeholder='name' name='name'>
+    Size:
+      <select name='size'>
+        <option value='small'>Small</option>
+        <option value='medium'>Medium</option>
+        <option value='large'>Large</option>
+      </select>
+    Toppings:
+    <input type="text" name="toppings" placeholder='Topping, topping, etc...'>
+    <input type="submit" value="Order Up!">
+  </form>
+</body>
+</html>

@@ -11,6 +11,9 @@ var routes = require('./routes/index');
 var imgur = require('./routes/imgur');
 var pizza = require('./routes/pizza');
 
+if(process.env.NODE_ENV !== production){
+  require('./lib/secret');
+}
 require('./lib/mongodb');
 var app = express();
 

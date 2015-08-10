@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> | Pizza value store</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Toppings</th>
+          <th>Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%orders.forEach(function(order){%>
+          <tr>
+            <td><%= order.name %></td>
+            <td><%= order.size %></td>
+            <td><%= order.toppings %></td>
+            <td><%= order.createdAt %></td>
+            <td>
+              <form action="/pizza/order/<%= order._id %>/complete" method='POST'>
+                <input type='submit' value="Complete">
+                Complete
+              </form>
+            </td>
+          </tr>
+        <%});%>
+      </tbody>
+    </table>
+  </body>
+</html>
