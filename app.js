@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 
 //var app = require('express')();
 var express = require('express');
@@ -12,7 +13,7 @@ var imgur = require('./routes/imgur');
 var pizza = require('./routes/pizza');
 
 if(process.env.NODE_ENV !== 'production'){
-  require('./lib/secret');
+  require(path.join(process.cwd(),'/lib/secret'));
 }
 require('./lib/mongodb');
 var app = express();
