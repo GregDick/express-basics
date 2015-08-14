@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title><%= title %></title>
+        <% include stylesheets %>
     </head>
     <body>
       <h1>My site title is <%= title %></h1>
@@ -11,5 +12,6 @@
           <li><%= thing.name %> is awesome</li>
         <% }); %>
       </ul>
+      <% include javascripts %>
     </body>
 </html>

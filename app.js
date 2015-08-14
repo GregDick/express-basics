@@ -12,6 +12,7 @@ var chickennuggets = require('./routes/chickennuggets');
 var routes = require('./routes/index');
 var imgur = require('./routes/imgur');
 var pizza = require('./routes/pizza');
+var user = require('./routes/user');
 
 if(process.env.NODE_ENV !== 'production'){
   require(path.join(process.cwd(),'/lib/secret'));
@@ -27,7 +28,7 @@ app.set('strict routing', true);
 app.locals.title = 'My Awesome App';
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(require('less-middleware')('public'));
+app.use(require('less-middleware')('www/stylesheets'));
 
 var logStream = fs.createWriteStream('access.log', {flags: 'a'});
 
@@ -46,15 +47,13 @@ app.use(function(err, req, res, next){
   next();
 })
 
-app.use(express.static('public'));
-
-
-
 //========routes======//
 app.use('/chickennuggets', chickennuggets);
 app.use('/imgur', imgur);
 app.use('/pizza', pizza);
 app.use('/', routes);
+app.use('/user', user);
+app.use(express.static('www'));
 
 app.use(function(req, res){
   //400s before 500s
