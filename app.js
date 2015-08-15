@@ -1,4 +1,3 @@
-  console.log(process.env.PORT);
 var fs = require('fs');
 var path = require('path');
 
@@ -6,7 +5,7 @@ var path = require('path');
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
 
 var chickennuggets = require('./routes/chickennuggets');
 var routes = require('./routes/index');
@@ -26,6 +25,19 @@ app.set('strict routing', true);
 
 //all templates now have access to title
 app.locals.title = 'My Awesome App';
+
+app.use(session({
+  secret: 'expressbasicsisareallycoolapp',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(function(req, res, next){
+  req.session.count += 1;
+  console.log('Session:', req.session);
+  console.log(req.sessionID)
+  next();
+})
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('less-middleware')('www/stylesheets'));

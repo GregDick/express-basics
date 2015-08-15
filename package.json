@@ -22,6 +22,7 @@
     "body-parser": "^1.13.3",
     "ejs": "^2.3.3",
     "express": "^4.13.3",
+    "express-session": "^1.11.3",
     "imgur": "^0.1.6",
     "less-middleware": "^2.0.1",
     "loggly": "^1.0.8",
