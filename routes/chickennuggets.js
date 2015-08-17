@@ -7,8 +7,9 @@ var router = express.Router();
 var Order = require('../models/ChickenNuggets');
 
 router.get('/', function(req, res){
+  var id = req.session.user._id;
 
-  Order.findAll(function(err, orders){
+  Order.findAllByUserId(id, function(err, orders){
     res.render('templates/chicken-index', {orders: formatAllOrders(orders)})
   });
 
@@ -27,9 +28,10 @@ router.get('/order', function(req, res){
 });
 
 router.post('/order', function(req, res){
-  var order = new Order(req.body);
+  var o = req.body;
+  o.userId = req.session.user._id;
 
-  order.save(function(){
+  Order.create(o, function(){
     res.redirect('/chickennuggets');
   })
 });
@@ -42,15 +44,4 @@ router.post('/order/:id/complete', function(req, res){
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
 

@@ -16,8 +16,16 @@ router.post('/login', function doLogin(req, res){
   })
 });
 
+router.get('/logout', function logoutUser(req, res){
+  req.session.regenerate(function(){
+    res.redirect('/user/login');
+  })
+});
+
 router.get('/new', function newUser(req, res){
-  res.render('templates/new-user');
+  req.session.regenerate(function(){
+    res.render('templates/new-user');
+  })
 });
 
 router.post('/', function createUser(req, res){
@@ -25,7 +33,7 @@ router.post('/', function createUser(req, res){
     if (err) {
       res.render('user/new', {err: err});
     }else{
-      res.redirect('/');
+      res.redirect('/user/login');
     }
   })
 });
