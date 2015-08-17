@@ -1,0 +1,15 @@
+<header>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/hello">Hello</a></li>
+    <li><a href="/awesomethings">Awesomethings</a></li>
+    <%if(user){%>
+      <li><a href="/user/logout">logout</a></li>
+      <li><a href="/pizza">pizza</a></li>
+      <li><a href="/chickennuggets">chickennuggets</a></li>
+    <%}else{%>
+      <li><a href="/user/login">login</a></li>
+      <li><a href="/user/new">register</a></li>
+    <%}%>
+  </ul>
+</header>

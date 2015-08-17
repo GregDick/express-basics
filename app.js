@@ -16,6 +16,7 @@ var user = require('./routes/user');
 if(process.env.NODE_ENV !== 'production'){
   require(path.join(process.cwd(),'/lib/secret'));
 }
+
 require('./lib/mongodb');
 var app = express();
 
@@ -34,8 +35,7 @@ app.use(session({
 
 app.use(function(req, res, next){
   req.session.count += 1;
-  console.log('Session:', req.session);
-  console.log(req.sessionID)
+  // console.log('Session:', req.session);
   next();
 })
 
@@ -59,13 +59,28 @@ app.use(function(err, req, res, next){
   next();
 })
 
+app.use(function getAuthStatus (req, res, next){
+  res.locals.user = req.session.user || null;
+  next();
+})
+
+
 //========routes======//
-app.use('/chickennuggets', chickennuggets);
-app.use('/imgur', imgur);
-app.use('/pizza', pizza);
 app.use('/', routes);
 app.use('/user', user);
 app.use(express.static('www'));
+
+app.use(function requireAuth(req, res, next) {
+  if (res.locals.user) {
+    next();
+  } else {
+    res.redirect('/user/login');
+  }
+});
+
+app.use('/chickennuggets', chickennuggets);
+app.use('/imgur', imgur);
+app.use('/pizza', pizza);
 
 app.use(function(req, res){
   //400s before 500s
